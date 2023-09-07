@@ -132,7 +132,7 @@ using namespace std;
 //struct node{
 //	int data;
 //	node* next;
-//}*head = nullptr;
+//};
 //
 //node* create() {
 //	node* newnode = new node;
@@ -146,13 +146,13 @@ using namespace std;
 //	return newnode;
 //}
 //
-//inline bool isEmpty() {
+//inline bool isEmpty(node* head) {
 //	return head == nullptr;
 //}
 //
-//int count() {
+//int count(node* head) {
 //	int count = 0;
-//	if (isEmpty())
+//	if (isEmpty(head))
 //		return count;
 //	node* temp = head;
 //	while (temp != nullptr) {
@@ -162,8 +162,8 @@ using namespace std;
 //	return count;
 //}
 //
-//void print() {
-//	if (isEmpty()) {
+//void print(node* head) {
+//	if (isEmpty(head)) {
 //		cout << "List is empty.\n";
 //		return;
 //	}
@@ -175,10 +175,10 @@ using namespace std;
 //	cout << endl;
 //}
 //
-//void inserAtFront(int value) {
+//void inserAtFront(node* head, int value) {
 //	node* newnode = new node;
 //	newnode->data = value;
-//	if (isEmpty()) {
+//	if (isEmpty(head)) {
 //		newnode->next = nullptr;
 //		head = nullptr;
 //		return;
@@ -187,12 +187,12 @@ using namespace std;
 //	head = newnode;
 //}
 //
-//void inserAtGivenNode(int value, int loc) {
-//	if (isEmpty()) {
+//void inserAtGivenNode(node* head, int value, int loc) {
+//	if (isEmpty(head)) {
 //		cout << "List is empty." << endl;
 //		return;
 //	}
-//	if (count() < loc) {
+//	if (count(head) < loc) {
 //		cout << "Elements less than specified index." << endl;
 //		return;
 //	}
@@ -206,11 +206,11 @@ using namespace std;
 //	temp->next = newnode;
 //}
 //
-//void inserAtEnd(int value) {
+//void inserAtEnd(node* head, int value) {
 //	node* newnode = new node;
 //	newnode->data = value;
 //	newnode->next = nullptr;
-//	if (isEmpty()) {
+//	if (isEmpty(head)) {
 //		head = nullptr;
 //		return;
 //	}
@@ -221,8 +221,8 @@ using namespace std;
 //	temp->next = newnode;
 //}
 //
-//void deleteAtFront() {
-//	if (isEmpty()) {
+//void deleteAtFront(node* head) {
+//	if (isEmpty(head)) {
 //		cout << "List is empty.";
 //		return;
 //	}
@@ -231,13 +231,13 @@ using namespace std;
 //	delete temp;
 //}
 //
-//void deleteAtEnd() {
-//	if (isEmpty()) {
+//void deleteAtEnd(node* head) {
+//	if (isEmpty(head)) {
 //		cout << "List is empty.";
 //		return;
 //	}
-//	if (count() == 1) {
-//		deleteAtFront();
+//	if (count(head) == 1) {
+//		deleteAtFront(head);
 //		return;
 //	}
 //	node* temp = head;
@@ -248,12 +248,12 @@ using namespace std;
 //	temp->next = nullptr;
 //}
 //
-//void deleteGivenNode(int loc) {
-//	if (isEmpty()) {
+//void deleteGivenNode(node* head, int loc) {
+//	if (isEmpty(head)) {
 //		cout << "List is empty." << endl;
 //		return;
 //	}
-//	if (count() < loc) {
+//	if (count(head) < loc) {
 //		cout << "Elements less than specified index." << endl;
 //		return;
 //	}
@@ -266,9 +266,9 @@ using namespace std;
 //	delete ttemp;
 //}
 //
-//int sum() {
+//int sum(node* head) {
 //	int sum = 0;
-//	if (isEmpty())
+//	if (isEmpty(head))
 //		return sum;
 //	node* temp = head;
 //	while (temp != nullptr) {
@@ -278,8 +278,8 @@ using namespace std;
 //	return sum;
 //}
 //
-//void reverse() {
-//	if (isEmpty()) {
+//void reverse(node* head) {
+//	if (isEmpty(head)) {
 //		cout << "List is empty." << endl;
 //		return;
 //	}
@@ -303,7 +303,7 @@ using namespace std;
 //	y->data = temp;
 //}
 //
-//void bubble() {
+//void bubble(node* head) {
 //	if (head == nullptr || head->next == nullptr) {
 //		// List is empty or has only one element, no need to sort
 //		return;
@@ -327,9 +327,207 @@ using namespace std;
 //	} while (swapped);
 //}
 //
+//node* insertAtNode(node* b, node* a) {
+//	b->next = a->next;
+//	a->next = b;
+//	return b->next;
+//}
+//
+//node* merge(node* first, node* second) {
+//	if (first == nullptr) {
+//		return second;
+//	}
+//	if (second == nullptr) {
+//		return first;
+//	}
+//
+//	node* mergedList = new node;  // Create a dummy node as the starting point of merged list
+//	node* current = mergedList;
+//
+//	while (first != nullptr && second != nullptr) {
+//		if (first->data <= second->data) {
+//			current->next = first;
+//			current = current->next;
+//			first = first->next;
+//		}
+//		else {
+//			current->next = second;
+//			current = current->next;
+//			second = second->next;
+//		}
+//	}
+//
+//	// Append any remaining nodes from either list
+//	if (first != nullptr) {
+//		current->next = first;
+//	}
+//
+//	if (second != nullptr) {
+//		current->next = second;
+//	}
+//
+//	// Clean up dummy node and return the merged list
+//	node* mergedHead = mergedList->next;
+//	delete mergedList;
+//	return mergedHead;
+//}
 //int main() {
-//	head = create();
-//	print();
+//	node* first = nullptr;
+//	node* second = nullptr;
+//	cout << "Creating First List." << endl;
+//	first = create();
+//	cout << "Creating Second List." << endl;
+//	second = create();
+//	//bubble(head);
+//	print(first);
+//	first = merge(first, second);
+//	print(first);
 //	return 0;
 //}
 
+/*Doubly Lined List All Operations*/
+struct node {
+	int data;
+	struct node* prev;
+	struct node* next;
+};
+
+node* create() {
+	int value;
+	cout << "Enter the data (-1 if no node) :";
+	cin >> value;
+	if (value == -1)
+		return nullptr;
+	node* head = new node;
+	head->data = value;
+	cout << "Enter the next node: ";
+	head->next = create();
+	if (head->next != nullptr) {
+		head->next->prev = head; // Set the previous node's prev pointer
+	}
+	head->prev = nullptr;
+	return head;
+}
+
+inline bool isEmpty(node* head) {
+	return head == nullptr;
+}
+
+int count(node* head) {
+	int count = 0;
+	if (isEmpty(head))
+		return count;
+	node* temp = head;
+	while (temp != nullptr) {
+		count++;
+		temp = temp->next;
+	}
+	return count;
+}
+
+void print(node* temp) {
+	while (temp->next != nullptr) {
+		cout << temp->data << " ";
+		temp = temp->next;
+	}
+	while (temp->prev != nullptr) {
+		cout << temp->data << " ";
+		temp = temp->prev;
+	}
+}
+
+void inserAtFront(node* head, int value) {
+	node* newnode = new node;
+	newnode->data = value;
+	if (isEmpty(head)) {
+		newnode->next = nullptr;
+		head = nullptr;
+		return;
+	}
+	newnode->next = head;
+	head = newnode;
+}
+
+void inserAtGivenNode(node* head, int value, int loc) {
+	if (isEmpty(head)) {
+		cout << "List is empty." << endl;
+		return;
+	}
+	if (count(head) < loc) {
+		cout << "Elements less than specified index." << endl;
+		return;
+	}
+	node* temp = head;
+	for (int i = 1; i < loc - 1; ++i) {
+		temp = temp->next;
+	}
+	node* newnode = new node;
+	newnode->data = value;
+	newnode->next = temp->next;
+	temp->next = newnode;
+}
+
+void inserAtEnd(node* head, int value) {
+	node* newnode = new node;
+	newnode->data = value;
+	newnode->next = nullptr;
+	if (isEmpty(head)) {
+		head = nullptr;
+		return;
+	}
+	node* temp = head;
+	while (temp->next != nullptr) {
+		temp = temp->next;
+	}
+	temp->next = newnode;
+}
+
+void deleteAtFront(node* head) {
+	if (isEmpty(head)) {
+		cout << "List is empty.";
+		return;
+	}
+	node* temp = head;
+	head = head->next;
+	delete temp;
+}
+
+void deleteAtEnd(node* head) {
+	if (isEmpty(head)) {
+		cout << "List is empty.";
+		return;
+	}
+	if (count(head) == 1) {
+		deleteAtFront(head);
+		return;
+	}
+	node* temp = head;
+	while (temp->next->next != nullptr) {
+		temp = temp->next;
+	}
+	delete temp->next;
+	temp->next = nullptr;
+}
+
+void deleteGivenNode(node* head, int loc) {
+	if (isEmpty(head)) {
+		cout << "List is empty." << endl;
+		return;
+	}
+	if (count(head) < loc) {
+		cout << "Elements less than specified index." << endl;
+		return;
+	}
+	node* temp = head;
+	for (int i = 1; i < loc - 1; ++i) {
+		temp = temp->next;
+	}
+	node* ttemp = temp->next;
+	temp->next = temp->next->next;
+	delete ttemp;
+}
+
+int main() {
+	node* head = create();
+	print(head);
+}
